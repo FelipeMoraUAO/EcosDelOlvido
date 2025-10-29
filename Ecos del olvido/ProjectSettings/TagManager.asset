@@ -5,8 +5,8 @@ TagManager:
   serializedVersion: 3
   tags:
   - Recolectable
-  - Suelo
   - Ground
+  - TimerText
   layers:
   - Default
   - TransparentFX
