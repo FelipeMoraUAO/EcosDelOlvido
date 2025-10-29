@@ -1,68 +1,54 @@
 using UnityEngine;
-using UnityEngine.InputSystem; // Requiere el nuevo Input System
-
-[RequireComponent(typeof(Rigidbody))]
 public class PlayerMove : MonoBehaviour
 {
-    [Header("Movimiento")]
-    [SerializeField] private float walkSpeed = 5f;
-    [SerializeField] private float runSpeed = 10f;
-    [SerializeField] private float jumpForce = 8f;
+    public float runSpeed = 7;
+    public float rotationSpeed = 250;
 
-    [Header("Física")]
-    [SerializeField] private float groundCheckDistance = 0.3f;
-    [SerializeField] private LayerMask groundMask;
+    public Animator animator;
 
-    private Rigidbody rb;
-    private Vector2 moveInput;
-    private bool isRunning;
-    private bool jumpInput;
-    private bool isGrounded;
+    private float x, y;
 
-    private void Awake()
+    public Rigidbody rb;
+    public float jumpHeight = 3;
+
+    public Transform groundCheck;
+    public float groundDistance = 0.1f;
+    public LayerMask groundMask;
+
+    bool isGrounded;
+
+    void Update()
     {
-        rb = GetComponent<Rigidbody>();
-        rb.freezeRotation = true; // evita que se caiga al chocar
-    }
+        x = Input.GetAxis("Horizontal");
+        y = Input.GetAxis("Vertical");
 
-    // =======================
-    // NUEVO INPUT SYSTEM
-    // =======================
-    public void OnMove(InputAction.CallbackContext ctx)
-    {
-        moveInput = ctx.ReadValue<Vector2>();
-    }
+        transform.Rotate(0, x * Time.deltaTime*rotationSpeed, 0);
 
-    public void OnRun(InputAction.CallbackContext ctx)
-    {
-        isRunning = ctx.ReadValueAsButton();
-    }
+        transform.Translate(0, 0, y * Time.deltaTime*runSpeed);
 
-    public void OnJump(InputAction.CallbackContext ctx)
-    {
-        if (ctx.performed)
-            jumpInput = true;
-    }
+        animator.SetFloat("VelX", x);
+        animator.SetFloat("VelY", y);
 
-    private void FixedUpdate()
-    {
-        // --- DETECCIÓN DE SUELO ---
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, groundCheckDistance, groundMask);
 
-        // --- MOVIMIENTO ---
-        Vector3 moveDir = new Vector3(moveInput.x, 0, moveInput.y).normalized;
-        if (moveDir.magnitude >= 0.1f)
+
+        if (Input.GetKey("f"))
         {
-            float targetSpeed = isRunning ? runSpeed : walkSpeed;
-            Vector3 move = transform.TransformDirection(moveDir) * targetSpeed;
-            rb.MovePosition(rb.position + move * Time.fixedDeltaTime);
+            animator.Play("Attack");
         }
 
-        // --- SALTO ---
-        if (jumpInput && isGrounded)
+        if (x > 0 || x < 0 || y > 0 || y < 0)
         {
-            rb.linearVelocity = new Vector3(rb.linearVelocity.x, jumpForce, rb.linearVelocity.z);
+            animator.SetBool("Other", true);
         }
-        jumpInput = false;
+
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
+        if (Input.GetKey("space")&& isGrounded)
+        {
+            animator.Play("Jump");
+
+            rb.AddForce(Vector3.up*jumpHeight,ForceMode.Impulse);
+        }
     }
+
 }
