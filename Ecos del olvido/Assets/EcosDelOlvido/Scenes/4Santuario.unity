@@ -458,6 +458,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: HechizoAgua
       objectReference: {fileID: 0}
+    - target: {fileID: 4403938735954328306, guid: 8e6fa9df9e8c4b94ca1cff0cc4c3eb05, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4403938735954328306, guid: 8e6fa9df9e8c4b94ca1cff0cc4c3eb05, type: 3}
+      propertyPath: m_TagString
+      value: Recolectable
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
