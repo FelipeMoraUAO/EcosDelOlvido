@@ -364,6 +364,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e145c6d4c8ac54499b1f41ecc319c8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  hechizosRecolectados: []
+  recuerdosRecolectados: []
 --- !u!4 &1655859254
 Transform:
   m_ObjectHideFlags: 0

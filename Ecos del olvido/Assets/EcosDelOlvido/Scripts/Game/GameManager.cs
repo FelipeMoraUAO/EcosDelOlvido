@@ -1,33 +1,83 @@
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    void Start()
+    public static GameManager Instance; // ✅ Singleton accesible globalmente
+
+    // Listas para guardar los ítems recolectados
+    public List<string> hechizosRecolectados = new List<string>();
+    public List<string> recuerdosRecolectados = new List<string>();
+
+    private void Awake()
     {
+        // Asegurar que solo exista un GameManager en toda la ejecución
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void Start()
+    {
+        // Escuchar el cambio de escena
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // Escena de Santuario: empieza el conteo
+        // Escena de Santuario: reinicia y arranca el tiempo
         if (scene.name == "4Santuario")
         {
-            GameTimer.instance.ReiniciarTiempo();
-            GameTimer.instance.IniciarTiempo();
+            if (GameTimer.instance != null)
+            {
+                GameTimer.instance.ReiniciarTiempo();
+                GameTimer.instance.IniciarTiempo();
+            }
         }
 
-        // Escena del Castillo: contin�a el conteo (ya viene corriendo)
-        if (scene.name == "5Castillo")
+        // Escena del Castillo: continúa el conteo
+        else if (scene.name == "5Castillo")
         {
-            GameTimer.instance.IniciarTiempo();
+            if (GameTimer.instance != null)
+            {
+                GameTimer.instance.IniciarTiempo();
+            }
         }
 
-        // Escena final o victoria: se detiene el cron�metro
-        if (scene.name == "7Victoria")
+        // Escena final o de victoria: se detiene el cronómetro
+        else if (scene.name == "7Victoria")
         {
-            GameTimer.instance.DetenerTiempo();
-            Debug.Log("Tiempo total: " + GameTimer.instance.tiempoTotal);
+            if (GameTimer.instance != null)
+            {
+                GameTimer.instance.DetenerTiempo();
+                Debug.Log("Tiempo total: " + GameTimer.instance.tiempoTotal);
+            }
+        }
+    }
+
+    // ✅ Métodos públicos para registrar ítems recolectados
+    public void AgregarHechizo(string nombreHechizo)
+    {
+        if (!hechizosRecolectados.Contains(nombreHechizo))
+        {
+            hechizosRecolectados.Add(nombreHechizo);
+            Debug.Log("Hechizo agregado: " + nombreHechizo);
+        }
+    }
+
+    public void AgregarRecuerdo(string nombreRecuerdo)
+    {
+        if (!recuerdosRecolectados.Contains(nombreRecuerdo))
+        {
+            recuerdosRecolectados.Add(nombreRecuerdo);
+            Debug.Log("Recuerdo agregado: " + nombreRecuerdo);
         }
     }
 }
