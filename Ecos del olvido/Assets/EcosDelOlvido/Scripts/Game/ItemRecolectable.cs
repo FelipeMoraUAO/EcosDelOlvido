@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public enum TipoItem
 {
@@ -10,27 +10,42 @@ public class ItemRecolectable : MonoBehaviour
 {
     public TipoItem tipoItem;
     public string nombreItem;
+
     private bool enRango = false;
+    private Transform jugador;
+    private Inventario inventario; // referencia al UI
+
+    void Start()
+    {
+        // Buscar referencias al jugador y al inventario
+        jugador = GameObject.FindGameObjectWithTag("Player")?.transform;
+
+        // ✅ Método actualizado recomendado por Unity (más rápido y moderno)
+        inventario = Object.FindFirstObjectByType<Inventario>();
+    }
 
     void Update()
     {
-        // Solo se activa si el jugador est� cerca y presiona E
         if (enRango && Input.GetKeyDown(KeyCode.E))
         {
             switch (tipoItem)
             {
                 case TipoItem.Hechizo:
-                    Debug.Log("Hechizo recolectado: " + nombreItem);
+                    Debug.Log("✅ Recolectando (Hechizo): " + nombreItem);
                     GameManager.Instance.AgregarHechizo(nombreItem);
                     break;
 
                 case TipoItem.Recuerdo:
-                    Debug.Log("Recuerdo recolectado: " + nombreItem);
+                    Debug.Log("✅ Recolectando (Recuerdo): " + nombreItem);
                     GameManager.Instance.AgregarRecuerdo(nombreItem);
                     break;
             }
 
-            // Desactivar el objeto tras recolectarlo
+            // 🔹 Actualiza el contador del UI
+            if (inventario != null)
+                inventario.RecolectarObjeto();
+
+            // 🔹 Desactiva el objeto tras recolectarlo
             gameObject.SetActive(false);
         }
     }
@@ -39,7 +54,7 @@ public class ItemRecolectable : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Jugador entr� en el �rea de recolecci�n de " + nombreItem);
+            Debug.Log("🧙 Jugador entró al rango del ítem: " + nombreItem);
             enRango = true;
         }
     }
@@ -48,7 +63,7 @@ public class ItemRecolectable : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Jugador sali� del �rea de recolecci�n de " + nombreItem);
+            Debug.Log("🚶 Jugador salió del rango del ítem: " + nombreItem);
             enRango = false;
         }
     }

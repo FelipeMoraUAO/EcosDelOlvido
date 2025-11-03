@@ -142,9 +142,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemRecolectable
   tipoItem: 0
-  nombreItem: HechizoAgua
---- !u!64 &191493316
-MeshCollider:
+  nombreItem: HechizoHielo
+--- !u!65 &191493316
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -161,10 +161,9 @@ MeshCollider:
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 6239881831769578202, guid: 238677a29b548d44b889d4717ad0f30e, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 0.6664165, y: 0.91838384, z: 0.10573679}
+  m_Center: {x: -0.28283292, y: 0.1278228, z: -0.0011595313}
 --- !u!1 &400112559
 GameObject:
   m_ObjectHideFlags: 0
@@ -268,8 +267,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemRecolectable
   tipoItem: 0
   nombreItem: HechizoFuego
---- !u!64 &585275084
-MeshCollider:
+--- !u!65 &585275084
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -286,10 +285,9 @@ MeshCollider:
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 2534964839176971238, guid: 238677a29b548d44b889d4717ad0f30e, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 1.2395585, y: 0.60580206, z: 0.89255404}
+  m_Center: {x: -0.0016701221, y: 0.29817307, z: 0.27048695}
 --- !u!1 &746839228
 GameObject:
   m_ObjectHideFlags: 0
@@ -361,6 +359,54 @@ PrefabInstance:
       propertyPath: m_Name
       value: Santuario
       objectReference: {fileID: 0}
+    - target: {fileID: 3220122671269914809, guid: 55b6a8eca7fc9cf469fb8ea8e3dbda01, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.031094123
+      objectReference: {fileID: 0}
+    - target: {fileID: 3220122671269914809, guid: 55b6a8eca7fc9cf469fb8ea8e3dbda01, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.43074805
+      objectReference: {fileID: 0}
+    - target: {fileID: 3220122671269914809, guid: 55b6a8eca7fc9cf469fb8ea8e3dbda01, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.04402642
+      objectReference: {fileID: 0}
+    - target: {fileID: 3220122671269914809, guid: 55b6a8eca7fc9cf469fb8ea8e3dbda01, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.6557963
+      objectReference: {fileID: 0}
+    - target: {fileID: 3220122671269914809, guid: 55b6a8eca7fc9cf469fb8ea8e3dbda01, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.6557963
+      objectReference: {fileID: 0}
+    - target: {fileID: 3220122671269914809, guid: 55b6a8eca7fc9cf469fb8ea8e3dbda01, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.26444522
+      objectReference: {fileID: 0}
+    - target: {fileID: 3220122671269914809, guid: 55b6a8eca7fc9cf469fb8ea8e3dbda01, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.26444522
+      objectReference: {fileID: 0}
+    - target: {fileID: 3220122671269914809, guid: 55b6a8eca7fc9cf469fb8ea8e3dbda01, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 3220122671269914809, guid: 55b6a8eca7fc9cf469fb8ea8e3dbda01, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 43.923
+      objectReference: {fileID: 0}
+    - target: {fileID: 3349370998971297539, guid: 55b6a8eca7fc9cf469fb8ea8e3dbda01, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3349522345128659271, guid: 55b6a8eca7fc9cf469fb8ea8e3dbda01, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3350105413204609195, guid: 55b6a8eca7fc9cf469fb8ea8e3dbda01, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4985363714073819493, guid: 55b6a8eca7fc9cf469fb8ea8e3dbda01, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.48891416
@@ -404,8 +450,56 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3223345271335258235, guid: 55b6a8eca7fc9cf469fb8ea8e3dbda01, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1536800968}
+    - targetCorrespondingSourceObject: {fileID: 3223345271335258235, guid: 55b6a8eca7fc9cf469fb8ea8e3dbda01, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1536800969}
   m_SourcePrefab: {fileID: 100100000, guid: 55b6a8eca7fc9cf469fb8ea8e3dbda01, type: 3}
+--- !u!1 &1536800967 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3223345271335258235, guid: 55b6a8eca7fc9cf469fb8ea8e3dbda01, type: 3}
+  m_PrefabInstance: {fileID: 1536800966}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1536800968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1536800967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38911c9d9205b75438208f5cb3b231cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjetoTransicion
+  escenaDestino: 5Castillo
+  hechizosNecesarios: 2
+  textoInteraccion: {fileID: 0}
+  textoAviso: {fileID: 0}
+--- !u!65 &1536800969
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1536800967}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 196.80232, y: 208.79108, z: 39.31232}
+  m_Center: {x: 0.0000021701194, y: -76.36528, z: -0.0000017269283}
 --- !u!1001 &1636425000
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -472,10 +566,10 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4403938735954328306, guid: 8e6fa9df9e8c4b94ca1cff0cc4c3eb05, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 191493316}
+      addedObject: {fileID: 191493315}
     - targetCorrespondingSourceObject: {fileID: 4403938735954328306, guid: 8e6fa9df9e8c4b94ca1cff0cc4c3eb05, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 191493315}
+      addedObject: {fileID: 191493316}
   m_SourcePrefab: {fileID: 100100000, guid: 8e6fa9df9e8c4b94ca1cff0cc4c3eb05, type: 3}
 --- !u!1 &1675639981
 GameObject:
@@ -522,17 +616,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: HechizoFuego
       objectReference: {fileID: 0}
+    - target: {fileID: 6127669787621279706, guid: 615c8ae40e540334fbbadaf3a7f13c30, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6127669787621279706, guid: 615c8ae40e540334fbbadaf3a7f13c30, type: 3}
+      propertyPath: m_TagString
+      value: Recolectable
+      objectReference: {fileID: 0}
     - target: {fileID: 6991424074590138755, guid: 615c8ae40e540334fbbadaf3a7f13c30, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.38516
+      value: 5.263
       objectReference: {fileID: 0}
     - target: {fileID: 6991424074590138755, guid: 615c8ae40e540334fbbadaf3a7f13c30, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.71061003
+      value: -0.567
       objectReference: {fileID: 0}
     - target: {fileID: 6991424074590138755, guid: 615c8ae40e540334fbbadaf3a7f13c30, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.6155128
+      value: 0.246
       objectReference: {fileID: 0}
     - target: {fileID: 6991424074590138755, guid: 615c8ae40e540334fbbadaf3a7f13c30, type: 3}
       propertyPath: m_LocalRotation.w
@@ -568,10 +670,10 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6127669787621279706, guid: 615c8ae40e540334fbbadaf3a7f13c30, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 585275084}
+      addedObject: {fileID: 585275083}
     - targetCorrespondingSourceObject: {fileID: 6127669787621279706, guid: 615c8ae40e540334fbbadaf3a7f13c30, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 585275083}
+      addedObject: {fileID: 585275084}
   m_SourcePrefab: {fileID: 100100000, guid: 615c8ae40e540334fbbadaf3a7f13c30, type: 3}
 --- !u!1001 &2996012146340150135
 PrefabInstance:
