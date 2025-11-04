@@ -6,11 +6,16 @@ public class GameTimer : MonoBehaviour
 {
     public static GameTimer instance;
 
-    public TextMeshProUGUI timerText;  // Texto en pantalla
-    public float tiempoPorFragmento = 90f;
-    public float tiempoRestante;
-    public float tiempoTotal;
+    [Header("Configuración general")]
+    public TextMeshProUGUI timerText;   // Texto del cronómetro en pantalla
+    public float tiempoTotal;           // Tiempo total acumulado (todas las escenas)
     private bool corriendo = false;
+
+    [Header("Tiempos por escena")]
+    public float tiempoSantuario = 60f;
+    public float tiempoCastillo = 90f;
+
+    private float tiempoRestante;
 
     void Awake()
     {
@@ -26,11 +31,6 @@ public class GameTimer : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-        ReiniciarTiempo();
-    }
-
     void Update()
     {
         if (corriendo)
@@ -41,7 +41,7 @@ public class GameTimer : MonoBehaviour
             {
                 tiempoRestante = 0;
                 corriendo = false;
-                SceneManager.LoadScene("6Derrota");
+                SceneManager.LoadScene("6Derrota"); // Escena de derrota
             }
 
             ActualizarTexto();
@@ -59,7 +59,7 @@ public class GameTimer : MonoBehaviour
 
     public void ReiniciarTiempo()
     {
-        tiempoRestante = tiempoPorFragmento;
+        tiempoRestante = ObtenerTiempoPorEscena();
         ActualizarTexto();
     }
 
@@ -71,12 +71,11 @@ public class GameTimer : MonoBehaviour
     public void DetenerTiempo()
     {
         corriendo = false;
-        tiempoTotal += (tiempoPorFragmento - tiempoRestante);
+        tiempoTotal += (ObtenerTiempoPorEscena() - tiempoRestante);
     }
 
     public void FragmentoCompletado()
     {
-        // Llamar cuando el jugador consiga un fragmento
         DetenerTiempo();
         ReiniciarTiempo();
         IniciarTiempo();
@@ -88,5 +87,29 @@ public class GameTimer : MonoBehaviour
         var found = GameObject.FindWithTag("TimerText");
         if (found != null)
             timerText = found.GetComponent<TextMeshProUGUI>();
+
+        // Reiniciar tiempo automáticamente según la nueva escena
+        ReiniciarTiempo();
+        IniciarTiempo();
+    }
+
+    /// <summary>
+    /// Devuelve el tiempo inicial según la escena actual.
+    /// </summary>
+    private float ObtenerTiempoPorEscena()
+    {
+        string escena = SceneManager.GetActiveScene().name;
+
+        switch (escena)
+        {
+            case "4Santuario":
+                return tiempoSantuario;
+
+            case "5Castillo":
+                return tiempoCastillo;
+
+            default:
+                return 90f; // Tiempo por defecto
+        }
     }
 }
