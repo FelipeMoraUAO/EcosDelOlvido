@@ -50,7 +50,7 @@ public class ObjetoTransicion : MonoBehaviour
     {
         if (GameManager.Instance == null)
         {
-            Debug.LogError("❌ No se encontró GameManager en la escena.");
+            Debug.LogError("No se encontró GameManager en la escena.");
             return;
         }
 
@@ -58,7 +58,7 @@ public class ObjetoTransicion : MonoBehaviour
 
         if (cantidadHechizos >= hechizosNecesarios)
         {
-            Debug.Log("✅ Tienes todos los hechizos. Transicionando a " + escenaDestino + "...");
+            Debug.Log("Tienes todos los hechizos. Transicionando a " + escenaDestino + "...");
 
             if (loader != null)
                 loader.Castillo(); // Usa tu método personalizado
@@ -68,7 +68,7 @@ public class ObjetoTransicion : MonoBehaviour
         }
         else
         {
-            Debug.Log("⚠️ Aún te faltan hechizos por recolectar.");
+            Debug.Log("Aún te faltan hechizos por recolectar.");
             if (textoAviso != null)
                 StartCoroutine(MostrarAvisoTemporal($"Aún te falta recolectar los {hechizosNecesarios} hechizos..."));
         }

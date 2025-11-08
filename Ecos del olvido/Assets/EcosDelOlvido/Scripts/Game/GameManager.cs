@@ -1,18 +1,18 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance; // ✅ Singleton accesible globalmente
+    public static GameManager Instance;
 
-    // Listas para guardar los ítems recolectados
     public List<string> hechizosRecolectados = new List<string>();
     public List<string> recuerdosRecolectados = new List<string>();
 
-    private void Awake()
+    public int totalRecuerdosNecesarios = 4; // ✅ Cantidad requerida para ganar
+
+    void Awake()
     {
-        // Asegurar que solo exista un GameManager en toda la ejecución
         if (Instance == null)
         {
             Instance = this;
@@ -24,60 +24,34 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Start()
+    // 🌀 Métodos para HECHIZOS
+    public void AgregarHechizo(string nombre)
     {
-        // Escuchar el cambio de escena
-        SceneManager.sceneLoaded += OnSceneLoaded;
+        if (!hechizosRecolectados.Contains(nombre))
+        {
+            hechizosRecolectados.Add(nombre);
+            Debug.Log($"🪄 Hechizo agregado: {nombre} | Total: {hechizosRecolectados.Count}");
+        }
     }
 
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    // 🧩 Métodos para RECUERDOS
+    public void AgregarRecuerdo(string nombre)
     {
-        // Escena de Santuario: reinicia y arranca el tiempo
-        if (scene.name == "4Santuario")
+        if (!recuerdosRecolectados.Contains(nombre))
         {
-            if (GameTimer.instance != null)
-            {
-                GameTimer.instance.ReiniciarTiempo();
-                GameTimer.instance.IniciarTiempo();
-            }
-        }
+            recuerdosRecolectados.Add(nombre);
+            Debug.Log($"💭 Recuerdo agregado: {nombre} | Total: {recuerdosRecolectados.Count}");
 
-        // Escena del Castillo: continúa el conteo
-        else if (scene.name == "5Castillo")
-        {
-            if (GameTimer.instance != null)
+            // ✅ Si ya los tiene todos, cargar Victoria
+            if (recuerdosRecolectados.Count >= totalRecuerdosNecesarios)
             {
-                GameTimer.instance.IniciarTiempo();
-            }
-        }
-
-        // Escena final o de victoria: se detiene el cronómetro
-        else if (scene.name == "7Victoria")
-        {
-            if (GameTimer.instance != null)
-            {
-                GameTimer.instance.DetenerTiempo();
-                Debug.Log("Tiempo total: " + GameTimer.instance.tiempoTotal);
+                Debug.Log("🏆 ¡Todos los recuerdos recolectados! Cargando escena de Victoria...");
+                SceneManager.LoadScene("7Victoria");
             }
         }
     }
 
-    // ✅ Métodos públicos para registrar ítems recolectados
-    public void AgregarHechizo(string nombreHechizo)
-    {
-        if (!hechizosRecolectados.Contains(nombreHechizo))
-        {
-            hechizosRecolectados.Add(nombreHechizo);
-            Debug.Log("Hechizo agregado: " + nombreHechizo);
-        }
-    }
-
-    public void AgregarRecuerdo(string nombreRecuerdo)
-    {
-        if (!recuerdosRecolectados.Contains(nombreRecuerdo))
-        {
-            recuerdosRecolectados.Add(nombreRecuerdo);
-            Debug.Log("Recuerdo agregado: " + nombreRecuerdo);
-        }
-    }
+    // 🔎 Métodos para comprobar progreso
+    public int GetHechizos() => hechizosRecolectados.Count;
+    public int GetRecuerdos() => recuerdosRecolectados.Count;
 }

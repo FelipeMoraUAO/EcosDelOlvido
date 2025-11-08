@@ -483,63 +483,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 196.80232, y: 208.79108, z: 39.31232}
   m_Center: {x: 0.0000021701194, y: -76.36528, z: -0.0000017269283}
---- !u!1001 &1633955067
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 998930205862960040, guid: 2e59d1e49d0352b47829ca0e63c23682, type: 3}
-      propertyPath: m_Name
-      value: PlayerCaballero
-      objectReference: {fileID: 0}
-    - target: {fileID: 9021344913966058036, guid: 2e59d1e49d0352b47829ca0e63c23682, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 10.290741
-      objectReference: {fileID: 0}
-    - target: {fileID: 9021344913966058036, guid: 2e59d1e49d0352b47829ca0e63c23682, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.9233977
-      objectReference: {fileID: 0}
-    - target: {fileID: 9021344913966058036, guid: 2e59d1e49d0352b47829ca0e63c23682, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -8.626553
-      objectReference: {fileID: 0}
-    - target: {fileID: 9021344913966058036, guid: 2e59d1e49d0352b47829ca0e63c23682, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9021344913966058036, guid: 2e59d1e49d0352b47829ca0e63c23682, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9021344913966058036, guid: 2e59d1e49d0352b47829ca0e63c23682, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9021344913966058036, guid: 2e59d1e49d0352b47829ca0e63c23682, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9021344913966058036, guid: 2e59d1e49d0352b47829ca0e63c23682, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9021344913966058036, guid: 2e59d1e49d0352b47829ca0e63c23682, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9021344913966058036, guid: 2e59d1e49d0352b47829ca0e63c23682, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 2e59d1e49d0352b47829ca0e63c23682, type: 3}
 --- !u!1001 &1636425000
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -621,7 +564,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1675639982}
   m_Layer: 0
-  m_Name: ItemsRecolec
+  m_Name: Posiones
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1215,4 +1158,3 @@ SceneRoots:
   - {fileID: 1536800966}
   - {fileID: 1675639982}
   - {fileID: 1734315702}
-  - {fileID: 1633955067}
