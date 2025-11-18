@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using TMPro;
 
 public enum TipoItem
 {
@@ -12,40 +13,42 @@ public class ItemRecolectable : MonoBehaviour
     public string nombreItem;
 
     private bool enRango = false;
-    private Transform jugador;
-    private Inventario inventario; // referencia al UI
+    private Inventario inventario;
+
+    // Texto UI
+    private TextMeshProUGUI textoRecolectar;
 
     void Start()
     {
-        // Buscar referencias al jugador y al inventario
-        jugador = GameObject.FindGameObjectWithTag("Player")?.transform;
-
-        // ✅ Método actualizado recomendado por Unity (más rápido y moderno)
         inventario = Object.FindFirstObjectByType<Inventario>();
+
+        // Busca el texto UI por nombre
+        textoRecolectar = GameObject.Find("TextoRecolectar")?.GetComponent<TextMeshProUGUI>();
+
+        // Oculta el texto al inicio
+        if (textoRecolectar != null)
+            textoRecolectar.gameObject.SetActive(false);
     }
 
     void Update()
     {
         if (enRango && Input.GetKeyDown(KeyCode.E))
         {
-            switch (tipoItem)
-            {
-                case TipoItem.Hechizo:
-                    Debug.Log("✅ Recolectando (Hechizo): " + nombreItem);
-                    GameManager.Instance.AgregarHechizo(nombreItem);
-                    break;
+            // Recolectar según tipo
+            if (tipoItem == TipoItem.Hechizo)
+                GameManager.Instance.AgregarHechizo(nombreItem);
+            else if (tipoItem == TipoItem.Recuerdo)
+                GameManager.Instance.AgregarRecuerdo(nombreItem);
 
-                case TipoItem.Recuerdo:
-                    Debug.Log("✅ Recolectando (Recuerdo): " + nombreItem);
-                    GameManager.Instance.AgregarRecuerdo(nombreItem);
-                    break;
-            }
-
-            // 🔹 Actualiza el contador del UI
+            // Actualiza UI del inventario
             if (inventario != null)
                 inventario.RecolectarObjeto();
 
-            // 🔹 Desactiva el objeto tras recolectarlo
+            // Oculta el aviso
+            if (textoRecolectar != null)
+                textoRecolectar.gameObject.SetActive(false);
+
+            // Desaparece el ítem
             gameObject.SetActive(false);
         }
     }
@@ -54,8 +57,11 @@ public class ItemRecolectable : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("🧙 Jugador entró al rango del ítem: " + nombreItem);
             enRango = true;
+
+            // Mostrar texto
+            if (textoRecolectar != null)
+                textoRecolectar.gameObject.SetActive(true);
         }
     }
 
@@ -63,8 +69,11 @@ public class ItemRecolectable : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("🚶 Jugador salió del rango del ítem: " + nombreItem);
             enRango = false;
+
+            // Ocultar texto
+            if (textoRecolectar != null)
+                textoRecolectar.gameObject.SetActive(false);
         }
     }
 }

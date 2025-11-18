@@ -366,6 +366,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   hechizosRecolectados: []
   recuerdosRecolectados: []
+  totalRecuerdosNecesarios: 4
 --- !u!4 &1655859254
 Transform:
   m_ObjectHideFlags: 0

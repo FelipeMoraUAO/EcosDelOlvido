@@ -22,7 +22,7 @@ public class ObjetoTransicion : MonoBehaviour
         if (textoAviso != null) textoAviso.gameObject.SetActive(false);
 
         // Busca el LoaderScenes activo en la escena
-        loader = FindObjectOfType<LoaderScenes>();
+        loader = Object.FindFirstObjectByType<LoaderScenes>();
         if (loader == null)
         {
             Debug.LogWarning("⚠️ No se encontró LoaderScenes en la escena. La transición usará SceneManager directamente.");
