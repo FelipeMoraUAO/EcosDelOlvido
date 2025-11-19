@@ -1,4 +1,5 @@
-using UnityEngine;
+ï»¿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -6,7 +7,7 @@ public class Player : MonoBehaviour
     public int vidaMaxima = 100;
     public int vida;
 
-    [Header("Configuraciones de daño")]
+    [Header("Configuraciones de daÃ±o")]
     public bool estaMuerto = false;
 
     void Start()
@@ -15,8 +16,8 @@ public class Player : MonoBehaviour
         vida = vidaMaxima;
     }
 
-    // Método para recibir daño
-    public void TomarDaño(int cantidad)
+    // MÃ©todo para recibir daÃ±o
+    public void TomarDaÃ±o(int cantidad)
     {
         if (estaMuerto) return;
 
@@ -29,7 +30,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    // Método para curarse (opcional)
+    // MÃ©todo para curarse (opcional)
     public void Curar(int cantidad)
     {
         if (estaMuerto) return;
@@ -38,14 +39,16 @@ public class Player : MonoBehaviour
         vida = Mathf.Clamp(vida, 0, vidaMaxima);
     }
 
-    // Método cuando la vida llega a 0
+    // MÃ©todo cuando la vida llega a 0
     void Morir()
     {
         estaMuerto = true;
-        Debug.Log("El jugador ha muerto");
+        Debug.Log("ðŸ’€ El jugador ha muerto");
 
-        // Aquí puedes agregar animación de muerte, desactivar control, etc.
-        // Ejemplo:
-        // GetComponent<PlayerMove>().enabled = false;
+        // Desactivar movimiento
+        GetComponent<PlayerMove>().enabled = false;
+
+        // Cargar escena derrota
+        SceneManager.LoadScene("6Derrota");
     }
 }

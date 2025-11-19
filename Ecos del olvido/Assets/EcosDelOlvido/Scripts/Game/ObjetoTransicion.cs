@@ -5,72 +5,56 @@ using TMPro;
 public class ObjetoTransicion : MonoBehaviour
 {
     [Header("Configuración de interacción")]
-    public string escenaDestino = "5Castillo";  // Escena destino
-    public int hechizosNecesarios = 2;          // Cuántos hechizos se requieren
+    public string escenaDestino = "5Castillo";
+    public int hechizosNecesarios = 2;
 
-    [Header("Referencias UI")]
-    public TextMeshProUGUI textoInteraccion;    // Texto: "Presiona E para interactuar"
-    public TextMeshProUGUI textoAviso;          // Texto: "Falta recolectar..."
+    [Header("UI")]
+    public TextMeshProUGUI textoInteraccion; // "Presiona E para avanzar"
+    public TextMeshProUGUI textoAviso;       // Aviso temporal
 
     private bool enRango = false;
     private LoaderScenes loader;
 
     void Start()
     {
-        // Oculta los textos al inicio
         if (textoInteraccion != null) textoInteraccion.gameObject.SetActive(false);
         if (textoAviso != null) textoAviso.gameObject.SetActive(false);
 
-        // Busca el LoaderScenes activo en la escena
         loader = Object.FindFirstObjectByType<LoaderScenes>();
-        if (loader == null)
-        {
-            Debug.LogWarning("⚠️ No se encontró LoaderScenes en la escena. La transición usará SceneManager directamente.");
-        }
     }
 
     void Update()
     {
-        if (enRango)
-        {
-            if (textoInteraccion != null && !textoInteraccion.gameObject.activeSelf)
-                textoInteraccion.gameObject.SetActive(true);
-
-            if (Input.GetKeyDown(KeyCode.E))
-                VerificarYTransicionar();
-        }
-        else
+        if (!enRango)
         {
             if (textoInteraccion != null && textoInteraccion.gameObject.activeSelf)
                 textoInteraccion.gameObject.SetActive(false);
+            return;
         }
+
+        // Mostrar texto
+        if (textoInteraccion != null)
+            textoInteraccion.gameObject.SetActive(true);
+
+        if (Input.GetKeyDown(KeyCode.E))
+            VerificarYTransicionar();
     }
 
     void VerificarYTransicionar()
     {
-        if (GameManager.Instance == null)
-        {
-            Debug.LogError("No se encontró GameManager en la escena.");
-            return;
-        }
-
         int cantidadHechizos = GameManager.Instance.hechizosRecolectados.Count;
 
         if (cantidadHechizos >= hechizosNecesarios)
         {
-            Debug.Log("Tienes todos los hechizos. Transicionando a " + escenaDestino + "...");
-
             if (loader != null)
-                loader.Castillo(); // Usa tu método personalizado
+                loader.Castillo();
             else
-                SceneManager.LoadScene(escenaDestino); // Fallback
-
+                SceneManager.LoadScene(escenaDestino);
         }
         else
         {
-            Debug.Log("Aún te faltan hechizos por recolectar.");
             if (textoAviso != null)
-                StartCoroutine(MostrarAvisoTemporal($"Aún te falta recolectar los {hechizosNecesarios} hechizos..."));
+                StartCoroutine(MostrarAvisoTemporal($"Aún te faltan {hechizosNecesarios - cantidadHechizos} hechizos..."));
         }
     }
 
