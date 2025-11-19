@@ -12,8 +12,11 @@ public class ItemRecolectable : MonoBehaviour
     public TipoItem tipoItem;
     public string nombreItem;
 
+    [Header("Imagen del recuerdo (solo si es Recuerdo)")]
+    public Sprite imagenDelRecuerdo;
+
     [Header("UI")]
-    public TextMeshProUGUI textoRecolectar;  // ← Ahora asignado por Inspector
+    public TextMeshProUGUI textoRecolectar;  // Asignar por inspector (opcional)
 
     private bool enRango = false;
     private Inventario inventario;
@@ -21,6 +24,10 @@ public class ItemRecolectable : MonoBehaviour
     void Start()
     {
         inventario = Object.FindFirstObjectByType<Inventario>();
+
+        // Si no asignaste el TMP por inspector, lo intentamos buscar por nombre (fallback)
+        if (textoRecolectar == null)
+            textoRecolectar = GameObject.Find("TextoRecolectar")?.GetComponent<TextMeshProUGUI>();
 
         if (textoRecolectar != null)
             textoRecolectar.gameObject.SetActive(false);
@@ -30,11 +37,20 @@ public class ItemRecolectable : MonoBehaviour
     {
         if (enRango && Input.GetKeyDown(KeyCode.E))
         {
-            // Recolectar
             if (tipoItem == TipoItem.Hechizo)
+            {
                 GameManager.Instance.AgregarHechizo(nombreItem);
-            else
+            }
+            else if (tipoItem == TipoItem.Recuerdo)
+            {
                 GameManager.Instance.AgregarRecuerdo(nombreItem);
+
+                // Mostrar imagen del recuerdo en el UI (si existe el controlador)
+                if (UIRecuerdos.Instance != null && imagenDelRecuerdo != null)
+                {
+                    UIRecuerdos.Instance.MostrarRecuerdo(imagenDelRecuerdo);
+                }
+            }
 
             if (inventario != null)
                 inventario.RecolectarObjeto();
