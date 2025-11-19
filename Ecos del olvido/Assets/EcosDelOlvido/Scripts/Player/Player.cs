@@ -4,19 +4,19 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
     [Header("Atributos de Vida")]
-    public int vidaMaxima = 100;
-    public int vida;
+    public int vidaMaxima = 100;     // Vida total máxima del jugador
+    public int vida;                 // Vida actual del jugador
 
     [Header("Configuraciones de daño")]
-    public bool estaMuerto = false;
+    public bool estaMuerto = false;  // Indica si el jugador ya ha muerto
 
     void Start()
     {
-        // Inicia con la vida completa
+        // Inicializa la vida al valor máximo
         vida = vidaMaxima;
     }
 
-    // Método para recibir daño
+    // Reduce la vida del jugador según el daño recibido
     public void TomarDaño(int cantidad)
     {
         if (estaMuerto) return;
@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    // Método para curarse (opcional)
+    // Aumenta la vida del jugador según la cantidad indicada
     public void Curar(int cantidad)
     {
         if (estaMuerto) return;
@@ -39,16 +39,15 @@ public class Player : MonoBehaviour
         vida = Mathf.Clamp(vida, 0, vidaMaxima);
     }
 
-    // Método cuando la vida llega a 0
+    // Se ejecuta cuando la vida llega a 0
     void Morir()
     {
         estaMuerto = true;
-        Debug.Log("💀 El jugador ha muerto");
 
-        // Desactivar movimiento
+        // Desactiva el movimiento del jugador
         GetComponent<PlayerMove>().enabled = false;
 
-        // Cargar escena derrota
+        // Cambia a la escena de derrota
         SceneManager.LoadScene("6Derrota");
     }
 }
