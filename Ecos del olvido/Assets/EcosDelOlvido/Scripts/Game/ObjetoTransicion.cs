@@ -13,18 +13,22 @@ public class ObjetoTransicion : MonoBehaviour
     public TextMeshProUGUI textoAviso;         // Texto temporal cuando faltan hechizos
 
     private bool enRango = false;              // Indica si el jugador está dentro del área del objeto
-    private LoaderScenes loader;               // Referencia al sistema de carga de escenas personalizado
+    private LoaderScenes loader;               // Referencia opcional al sistema de carga de escenas
 
-    // Inicializa referencias y oculta textos
     void Start()
     {
+        // Oculta UI si están asignadas
         if (textoInteraccion != null) textoInteraccion.gameObject.SetActive(false);
         if (textoAviso != null) textoAviso.gameObject.SetActive(false);
 
+        // Intenta encontrar el loader (si existe)
         loader = Object.FindFirstObjectByType<LoaderScenes>();
+
+        Debug.Log("[ObjetoTransicion] Start. escenaDestino=" + escenaDestino +
+                  " hechizosNecesarios=" + hechizosNecesarios +
+                  " loaderFound=" + (loader != null));
     }
 
-    // Revisa si el jugador está en rango e interpreta la tecla E
     void Update()
     {
         if (!enRango)
@@ -37,32 +41,60 @@ public class ObjetoTransicion : MonoBehaviour
         if (textoInteraccion != null)
             textoInteraccion.gameObject.SetActive(true);
 
+        // Al pulsar E intentamos la transición
         if (Input.GetKeyDown(KeyCode.E))
             VerificarYTransicionar();
     }
 
-    // Verifica si el jugador tiene los hechizos requeridos y decide si avanzar o mostrar aviso
     void VerificarYTransicionar()
     {
+        // Comprobaciones de seguridad
+        if (GameManager.Instance == null)
+        {
+            Debug.LogError("[ObjetoTransicion] GameManager.Instance es null. No se puede verificar progreso.");
+            // Fallback: cargar igual la escena si quieres forzar (descomenta la línea siguiente)
+            // SceneManager.LoadScene(escenaDestino);
+            return;
+        }
+
         int cantidadHechizos = GameManager.Instance.hechizosRecolectados.Count;
+        Debug.Log($"[ObjetoTransicion] Intento de transicionar. Hechizos: {cantidadHechizos}/{hechizosNecesarios}");
 
         if (cantidadHechizos >= hechizosNecesarios)
         {
+            Debug.Log("[ObjetoTransicion] Requisitos cumplidos. Transicionando...");
+
+            // Intentamos usar loader si existe y tiene el método, fallback a SceneManager
             if (loader != null)
-                loader.Castillo();              // Usa transición personalizada
+            {
+                try
+                {
+                    loader.Castillo();
+                    Debug.Log("[ObjetoTransicion] Usado loader.Castillo()");
+                }
+                catch (System.Exception ex)
+                {
+                    Debug.LogWarning("[ObjetoTransicion] loader.Castillo() falló: " + ex.Message + " -> usando SceneManager.LoadScene()");
+                    SceneManager.LoadScene(escenaDestino);
+                }
+            }
             else
-                SceneManager.LoadScene(escenaDestino); // Carga directa como respaldo
+            {
+                // Fallback directo si no hay loader
+                SceneManager.LoadScene(escenaDestino);
+                Debug.Log("[ObjetoTransicion] loader no encontrado, usado SceneManager.LoadScene()");
+            }
         }
         else
         {
+            int faltan = hechizosNecesarios - cantidadHechizos;
+            Debug.Log("[ObjetoTransicion] No cumple requisitos, faltan: " + faltan);
+
             if (textoAviso != null)
-                StartCoroutine(MostrarAvisoTemporal(
-                    $"Aún te faltan {hechizosNecesarios - cantidadHechizos} hechizos..."
-                ));
+                StartCoroutine(MostrarAvisoTemporal($"Aún te faltan {faltan} hechizos..."));
         }
     }
 
-    // Muestra un aviso por unos segundos y luego lo oculta
     System.Collections.IEnumerator MostrarAvisoTemporal(string mensaje)
     {
         textoAviso.text = mensaje;
@@ -71,17 +103,21 @@ public class ObjetoTransicion : MonoBehaviour
         textoAviso.gameObject.SetActive(false);
     }
 
-    // Detecta cuando el jugador entra en el trigger del objeto
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
+        {
             enRango = true;
+            Debug.Log("[ObjetoTransicion] Player entró en rango.");
+        }
     }
 
-    // Detecta cuando el jugador sale del trigger del objeto
     void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
+        {
             enRango = false;
+            Debug.Log("[ObjetoTransicion] Player salió del rango.");
+        }
     }
 }

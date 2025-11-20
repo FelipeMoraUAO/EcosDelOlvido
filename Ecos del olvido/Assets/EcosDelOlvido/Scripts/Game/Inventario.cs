@@ -27,7 +27,7 @@ public class Inventario : MonoBehaviour
         else if (escenaActual == "5Castillo")
         {
             nombreObjeto = "Memory Fragment";
-            totalObjetos = 4;
+            totalObjetos = 5;
         }
 
         ActualizarUI();

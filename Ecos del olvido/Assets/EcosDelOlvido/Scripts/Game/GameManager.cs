@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     public List<string> recuerdosRecolectados = new List<string>();
 
     // Cantidad total de recuerdos requeridos para activar la victoria
-    public int totalRecuerdosNecesarios = 4;
+    public int totalRecuerdosNecesarios = 5;
 
     // Se ejecuta antes de Start. Configura el patrón Singleton.
     void Awake()
